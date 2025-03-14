@@ -1,0 +1,10 @@
+LICENSE
+README.md
+
+scripts
+Earthfile
+install.sh
+
+.devcontainer
+.github/
+.github/**
