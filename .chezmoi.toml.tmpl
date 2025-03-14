@@ -1,0 +1,27 @@
+pager = "less -R"
+encryption = "age"
+
+{{- $email := promptString "Git email address for the author/committer" }}
+{{- $name := promptString "Git username for the author/committer" }}
+
+[add]
+    secrets = "error"
+
+[data]
+    email = "{{ $email }}"
+    name = "{{ $name }}"
+
+[edit]
+    apply = true
+
+[git]
+    autoCommit = true
+    autoPush = true
+
+[age]
+    identity = "~/.config/chezmoi/key.txt"
+    recipient = "age1lf6lngwdl9y34n2368zauncl6dzmcjnre20n0tukk0ljmafzsqhqnfp4zc"
+
+[hooks.edit-config-template.post]
+    command = "chezmoi"
+    args = ["init"]
