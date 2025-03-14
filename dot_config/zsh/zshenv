@@ -1,0 +1,4 @@
+# Global Path settings
+export PATH="/usr/local/bin:/usr/local/sbin:$HOME/bin:/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
+export PATH="$HOME/.poetry/bin:$PATH"  # Poetry bin
+export XDG_CONFIG_HOME="$HOME/.config"

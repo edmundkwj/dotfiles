@@ -1,0 +1,55 @@
+# navigation
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
+alias ~="cd ~"
+alias -- -="cd -"
+
+# bat
+# ------------------------------------------------------------------------------
+alias cat="bat --paging=never"
+
+# eza
+# ------------------------------------------------------------------------------
+if type eza &>/dev/null; then
+  alias l="eza --icons=always"
+  alias ls="eza --icons=always"
+  alias ll="eza -lg --icons=always"
+  alias la="eza -lag --icons=always"
+  alias lt="eza -lTg --icons=always"
+  alias lt2="eza -lTg --level=2 --icons=always"
+  alias lt3="eza -lTg --level=3 --icons=always"
+  alias lta="eza -lTag --icons=always"
+  alias lta2="eza -lTag --level=2 --icons=always"
+  alias lta3="eza -lTag --level=3 --icons=always"
+else
+  echo ERROR: eza could not be found. Skip setting up eza aliases.
+fi
+
+# git
+# ------------------------------------------------------------------------------
+alias ga='git add'
+alias gaa='git add --all'
+alias gapa='git add --patch'
+alias gb='git branch'
+alias gc='git commit --verbose'
+alias gcb='git checkout -b'
+alias gcm='git checkout master'
+alias gco='git branch | fzf -i | xargs git checkout'
+alias gcoa='git branch --all | fzf -i | sed "s/remotes\/.*\///" | xargs git checkout'
+alias gfa='git fetch --all --prune'
+alias gl='git pull'
+alias glg='git log --stat'
+alias gp='git push'
+alias gpf='git push --force-with-lease'
+alias gpsup='git push --set-upstream origin $(git branch --show-current)'
+alias grb='git rebase'
+alias grba='git rebase --abort'
+alias grbc='git rebase --continue'
+alias grbm='git rebase master'
+alias gst='git status'
+alias gsta='git stash push'
+alias gstc='git stash clear'
+alias gstl='git stash list'
+alias gstp='git stash pop'

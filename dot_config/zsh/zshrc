@@ -1,0 +1,82 @@
+# Source other files
+source ~/.config/zsh/aliases
+source ~/.zshenv
+
+setopt EXTENDED_HISTORY          # Write the history file in the ':start:elapsed;command' format.
+setopt INC_APPEND_HISTORY        # Write to the history file immediately, not when the shell exits.
+setopt SHARE_HISTORY             # Share history between all sessions.
+setopt HIST_EXPIRE_DUPS_FIRST    # Expire a duplicate event first when trimming history.
+setopt HIST_IGNORE_DUPS          # Do not record an event that was just recorded again.
+setopt HIST_IGNORE_ALL_DUPS      # Delete an old recorded event if a new event is a duplicate.
+setopt HIST_FIND_NO_DUPS         # Do not display a previously found event.
+setopt HIST_IGNORE_SPACE         # Do not record an event starting with a space.
+setopt HIST_SAVE_NO_DUPS         # Do not write a duplicate event to the history file.
+setopt HIST_VERIFY               # Do not execute immediately upon history expansion.
+setopt APPEND_HISTORY            # append to history file
+setopt HIST_NO_STORE             # Don't store history commands
+
+fastfetch
+
+# asdf
+source "$(brew --prefix asdf)/libexec/asdf.sh"
+
+# Syntax Highlighting and Autosuggestions for Zsh
+# ------------------------------------------------------------------------------
+if type brew &>/dev/null; then
+  source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+  if [[ -f "$(brew --prefix)/etc/profile.d/z.sh" ]]; then
+    . $(brew --prefix)/etc/profile.d/z.sh
+  fi
+fi
+
+# brewrap
+# ------------------------------------------------------------------------------
+if [ -f $(brew --prefix)/etc/brew-wrap ];then
+  source $(brew --prefix)/etc/brew-wrap
+fi
+
+# Starship
+# ------------------------------------------------------------------------------
+export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
+eval "$(starship init zsh)"
+
+# fzf
+# ------------------------------------------------------------------------------
+if type fzf &>/dev/null; then
+  source <(fzf --zsh)
+
+  export FZF_CTRL_R_OPTS="
+  --color header:italic
+  --height=80%
+  --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'
+  --header 'CTRL-Y: Copy command into clipboard, CTRL-/: Toggle line wrapping, CTRL-R: Toggle sorting by relevance'
+  "
+
+  export FZF_CTRL_T_OPTS="
+  --walker-skip .git,node_modules,target
+  --preview 'bat -n --color=always {}'
+  --height=80%
+  --bind 'ctrl-/:change-preview-window(down|hidden|)'
+  --header 'CTRL-/: Toggle preview window position'
+  "
+
+  export FZF_ALT_C_OPTS="
+  --walker-skip .git,node_modules,target
+  --preview 'tree -C {}'
+  --height=80%
+  --bind 'ctrl-/:change-preview-window(down|hidden|)'
+  --header 'CTRL-/: Toggle preview window position'
+  "
+  export FZF_DEFAULT_COMMAND='fd --type file'
+  export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+else
+  echo ERROR: Could not fzf shell integration.
+fi
+
+# zoxide (better `cd`)
+# ------------------------------------------------------------------------------
+if type zoxide &>/dev/null; then
+  eval "$(zoxide init zsh --cmd cd)"
+else
+  echo ERROR: Could not load zoxide shell integration.
+fi
