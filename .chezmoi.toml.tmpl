@@ -1,15 +1,8 @@
 pager = "less -R"
 encryption = "age"
 
-{{- $email := promptString "Git email address for the author/committer" }}
-{{- $name := promptString "Git username for the author/committer" }}
-
 [add]
     secrets = "error"
-
-[data]
-    email = "{{ $email }}"
-    name = "{{ $name }}"
 
 [edit]
     apply = true
@@ -17,7 +10,6 @@ encryption = "age"
 [git]
     autoCommit = true
     autoPush = true
-    commitMessageTemplate = "{{ promptString \"Commit message\" }}"
 
 [age]
     identity = "~/.config/chezmoi/key.txt"
