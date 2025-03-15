@@ -17,9 +17,6 @@ setopt HIST_NO_STORE             # Don't store history commands
 
 fastfetch
 
-# asdf
-source "$(brew --prefix asdf)/libexec/asdf.sh"
-
 # Syntax Highlighting and Autosuggestions for Zsh
 # ------------------------------------------------------------------------------
 if type brew &>/dev/null; then
@@ -39,6 +36,10 @@ fi
 # ------------------------------------------------------------------------------
 export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
 eval "$(starship init zsh)"
+
+# Mice 
+# ------------------------------------------------------------------------------
+eval "$(mise activate zsh)"
 
 # fzf
 # ------------------------------------------------------------------------------
